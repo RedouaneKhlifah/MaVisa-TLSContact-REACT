@@ -1,0 +1,23 @@
+<br />
+<b>Warning</b>:  Attempt to read property "First_name" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>13</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "Last_name" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>14</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "date_of_birth" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>15</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "nationality" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>16</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "family_status" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>18</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "address" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>19</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "visat_ype" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>20</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "Date_of_departure" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>21</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "Date_of_arrival" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>23</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "document_type" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>24</b><br />
+<br />
+<b>Warning</b>:  Attempt to read property "document_number" on null in <b>C:\xampp\htdocs\api\app\Controllers\createController.php</b> on line <b>25</b><br />
+["message = > data save"]
