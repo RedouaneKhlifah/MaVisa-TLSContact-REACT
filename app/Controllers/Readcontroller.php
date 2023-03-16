@@ -263,6 +263,38 @@ public function get_user($Reference_key){
 
 
 
+    ///////// get reservation /////////
+
+
+    public function get_the_reservation($id){
+
+        /// get id
+        $this->id_user  = $id;
+    
+        // excute query
+        if($this->get_reserv_req()){
+            $post_arr = array(
+                'date_reservation' => $this->date_reservation,
+                'time' =>$this->time,
+        
+            );
+        
+            // make jason
+    
+            header('Content-Type: application/json');
+            print_r(json_encode($post_arr));
+        }else {
+            header('HTTP/1.1 400 Bad Request');
+            print_r(json_encode(['error' => 'User request failed'], 400));
+        }
+    
+        // push data into array
+    
+        
+    }
+
+
+
 
 
 }

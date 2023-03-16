@@ -11,38 +11,27 @@ let allAppointmentTimes = [
   "03:45 - 05:15",
 ];
 
-// function App() {
-//     const [startDate, setStartDate] = useState(new Date());
-
-//   useEffect(() => {
-//     // Fetch the data from the database
-//     fetch("http://your-api-endpoint.com/disabled-dates")
-//     console.log();
-//       .then((res) => res.json())
-//       .then((data) => {
-//         const disabledDates = data.map((date) => new Date(date));
-//         setDatesDisabled(disabledDates);
-//       });
-//   }, []);
-// }
-
 function DateBody() {
+  ////// set fucnction navigate to use it to change the Page //////
   const navigate = useNavigate();
-  
+
+  /// api url ///
   const url = "http://TLSContact/create/add_reservation";
 
+  ///// use state /////
   const [data, setdata] = useState({
     date_reservation: "",
     time: "",
   });
   function handle(e) {
     const newdata = { ...data };
-    // console.log({ ...data });
+    ////// make a copy from data /////
     newdata[e.target.id] = e.target.value;
-    console.log(newdata);
+    ////// set value to inputs ////
     setdata(newdata);
   }
 
+  ////// submut btn function ///////
   const SubmitEvent = (e) => {
     e.preventDefault();
     axios
@@ -58,58 +47,34 @@ function DateBody() {
         console.log(error);
       });
   };
-  // const [startDate, setStartDate] = useState(new Date());
 
-  // const handleChange = (date) => {
-  //   console.log("Date has changed to", date);
-
-  //   // setStartDate(date);
-  // };
-
-  // const [datesDisabled, setDatesDisabled] = useState([]);
-
-  // useEffect(() => {
-  //   // Fetch the data from the database
-  //   fetch("http://TLSContact:80/read/get_users")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       data = data.data;
-  //       data = data.map((dates) => {
-  //         return dates.date_of_birth;
-  //       });
-  //       console.log(data);
-  //       const disabledDates = data.map((date) => new Date(date));
-  //       console.log(disabledDates);
-  //       setDatesDisabled(disabledDates);
-  //     });
-  // }, []);
-
-  // const disabledDates = [new Date("2022-01-03")];
-
-  // const [selectedDate, setSelectedDate] = useState(null);
   const [disabledDates, setDisabledDates] = useState([]);
 
+  //////////// get day if it full //////////
   useEffect(() => {
-    // Fetch the disabled dates from the database and store them in the state
+    // Fetch the disabled dates from the database and store them in the state /////
     fetch("http://TLSContact:80/read/get_disabled_dates")
       .then((response) => response.json())
       .then((data) => {
         data = data.data;
+
+        ///// loop trought array /////
         data = data.map((dates) => {
           return dates.date_reservation;
         });
-        console.log(data);
 
+        //// amke dates in Date format //////
         const disabledDatesArray = data.map(
           (dateString) => new Date(dateString)
         );
-        console.log(disabledDatesArray);
+        ///// set DisabledDates ///
         setDisabledDates(disabledDatesArray);
       });
   }, []);
 
+  ////// check the dates and return true or false for the filter in datepicker //////////
   const isDateDisabled = (date) => {
-    // Check if the date is in the array of disabled dates
+    // Check if the date is in the array of disabled dates //////
     return !disabledDates.some((disabledDate) => {
       return (
         disabledDate.getDate() === date.getDate() &&
@@ -118,35 +83,11 @@ function DateBody() {
       );
     });
   };
-  // let htmlElement;
-
-  // if (selectedDate) {
-  //   console.log(selectedDate.toISOString().split("T")[0]);
-  //   htmlElement = "";
-  //   // htmlElement = `          <select
-  //   //   onChange={(e) => handle(e)}
-  //   //   id="nationality"
-  //   //   name="Nationality"
-  //   //   className="select"
-  //   // >
-  //   //   <option value="">Select option</option>
-  //   //   {country_list.map((Element, index) => {
-  //   //     return (
-  //   //       <option key={index} value={Element}>
-  //   //         {Element}
-  //   //       </option>
-  //   //     );
-  //   //   })}
-  //   // </select>`;
-
-  //   // htmlElement =
-  // }
-
-  //// salho stupid code  hh///
 
   const [b, setB] = useState("");
   const [appointmentTimes, setAppointmentTimes] = useState([]);
 
+  /////// get value from datepicker inpute and change it to date fomrat /////
   let rdvDate =
     new Date(b).getFullYear() +
     "-" +
@@ -158,48 +99,28 @@ function DateBody() {
       ? "0" + new Date(b).getDate()
       : new Date(b).getDate());
 
+  //////// get the free dates in th select /////////
   useEffect(() => {
-    // Fetch appointment times
+    /////////// problem in date picker react /////
     if (rdvDate !== "NaN-NaN-NaN") {
       data.date_reservation = rdvDate;
       const url_times = "http://TLSContact/read/get_times";
+
+      //////// get the dayes reservation that is not disabled /////////
       axios
         .post(url_times, {
           date_reservation: data.date_reservation,
         })
         .then((res) => {
-          console.log("re");
           let array = res.data;
+
+          //////// filter the array and get anly free dates ///////
           array = allAppointmentTimes.filter((str) => !array.includes(str));
-          console.log(array);
 
           setAppointmentTimes(array);
         });
     }
   });
-
-  //// end of salho stupid code hh///
-
-  // console.log(b.;
-
-  // const [loading, setLoading] = useState(true);
-
-  // if (b) {
-  //   const url_times = "http://TLSContact/read/get_times";
-  //   axios
-  //     .post(url_times, {
-  //       date_reservation: data.date_reservation,
-  //     })
-  //     .then((res) => {
-  //       console.log("re");
-  //       let array = res.data;
-  //       console.log(array);
-  //       // apontmentTime = [];
-  //       apontmentTime = [...array];
-  //       console.log(apontmentTime);
-  //       // setLoading(false); // Set loading to false when the data has been fetched and processed
-  //     });
-  // }
 
   return (
     <center>

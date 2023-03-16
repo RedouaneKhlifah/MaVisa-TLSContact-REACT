@@ -89,7 +89,7 @@ class methods extends connection {
         $row  = mysqli_fetch_assoc($req);
 
 
-
+        $this->id_user = $row['id_user'];
         $this->First_name = $row['First_name'];
         $this->Last_name = $row['Last_name'];
         $this->date_of_birth = $row['date_of_birth'];
@@ -104,6 +104,29 @@ class methods extends connection {
         $this->document_type = $row['document_type'];
         $this->document = $row['document'];
         $this->Reference_key = $row['Reference_key'];
+        return true;
+
+        }else 
+        return false;
+        
+    }
+
+
+    ///// get reseve ///
+
+    public function get_reserv_req(){
+        $sql = "select * from reservation where id_user = '$this->id_user'";
+   
+        $req = $this->connect()->query($sql);
+        $num  = mysqli_num_rows($req);
+
+        if($num >0){
+              
+        $row  = mysqli_fetch_assoc($req);
+
+
+        $this->date_reservation = $row['date_reservation'];
+        $this->time = $row['time'];
         return true;
 
         }else 
@@ -272,6 +295,58 @@ public function get_dates_req(){
     
         return  $req;
     }
+
+
+
+
+        //////////////////   update   /////////////////////////////////
+
+    // update user
+
+    public function upadte_user(){
+        
+        // clean data 
+        
+        $this->First_name = htmlspecialchars(strip_tags($this->First_name));
+        $this->Last_name = htmlspecialchars(strip_tags($this->Last_name));
+        $this->date_of_birth = htmlspecialchars(strip_tags($this->date_of_birth));
+        $this->nationality = htmlspecialchars(strip_tags($this->nationality));
+
+
+        $this->family_status = htmlspecialchars(strip_tags($this->family_status));
+        $this->address = htmlspecialchars(strip_tags($this->address));
+        $this->visat_ype = htmlspecialchars(strip_tags($this->visat_ype));
+        $this->Date_of_departure = htmlspecialchars(strip_tags($this->Date_of_departure));
+
+
+        $this->Date_of_arrival = htmlspecialchars(strip_tags($this->Date_of_arrival));
+        $this->document_type = htmlspecialchars(strip_tags($this->document_type));
+        $this->document= htmlspecialchars(strip_tags($this->document));
+        $this->Reference_key = htmlspecialchars(strip_tags($this->Reference_key));
+
+        
+        $con  =  $this->connect();
+
+        $query = "UPDATE user SET First_name=?, Last_name=?, date_of_birth=?, nationality=?, family_status=?, address=?,Date_of_departure=?, Date_of_arrival=? WHERE id_user='$this->id_user'";
+
+        //prepare statment 
+        $stmt = $con->prepare($query);
+
+
+
+        // bind data 
+
+        $stmt->bind_param('ssssssss',$this->First_name,$this->Last_name,$this->date_of_birth,$this->nationality,$this->family_status,$this->address,$this->Date_of_departure,$this->Date_of_arrival);
+        
+        
+        if($stmt->execute()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
 
 }
 

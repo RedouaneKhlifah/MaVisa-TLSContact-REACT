@@ -8,18 +8,6 @@ function HeaderReference_Key() {
       setReferenceKey(storedReferenceKey);
     }
   }, []);
-  ///// when user leave the page ////////
-
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event) => {
-  //     event.preventDefault();
-  //     localStorage.removeItem("Reference_key");
-  //   };
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
 
   return (
     <div>

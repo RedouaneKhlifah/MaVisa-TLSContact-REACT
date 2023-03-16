@@ -6,7 +6,13 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container">
-          <img src={logonav} alt="" style={{ width: "145px" }}></img>
+          <a href="/">
+            <img
+              src={logonav}
+              alt=""
+              style={{ width: "145px", cursor: "pointer" }}
+            ></img>
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,22 +26,6 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <form className="d-flex" role="search">
-              <button
-                id="navbtn"
-                className="btn btn-outline-primary mx-3"
-                type="submit"
-              >
-                Register
-              </button>
-              <button
-                id="navbtn"
-                className="btn btn-outline-primary"
-                type="submit"
-              >
-                login
-              </button>
-            </form>
           </div>
         </div>
       </nav>

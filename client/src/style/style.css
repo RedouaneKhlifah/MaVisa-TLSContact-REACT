@@ -213,4 +213,15 @@
   margin: 0px;
   padding: 0px;
   font-size: 16px;
+  padding-left: 10px;
+  color: chocolate;
+}
+
+.textinformUser {
+  font-size: 15px;
+}
+
+#success {
+  font-size: 20px;
+  font-weight: 500;
 }

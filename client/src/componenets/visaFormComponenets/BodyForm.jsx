@@ -213,34 +213,14 @@ let familystatus = ["Married", "divorced", "veuf", "Jamais marié"];
 let visaType = ["Short-stay(< 90)", "Long-stay(> 90)"];
 let typedocument = ["passeport", "carte d'identité"];
 
-//// na3ma ////
-
-//// na3ma ////
-
-/// SELECT date_reservation, COUNT(*) as count
-/// FROM reservation
-/// GROUP BY date_reservation
-/// HAVING COUNT(*) = 4;
-
-// //  function formpost  /////////////////
-
-// async function postform(url) {
-//   let response = await fetch(url, {
-//     method: "POST",
-//     mode: "cors",
-//     cache: "no-cache",
-//     credentials: "same-origin",
-//     headers: {
-//       "content-type": "application/json",
-//     },
-//     redirect: "follow",
-//     body: JSON.stringify(data),
-//   });
-// }µµ
-
 function BodyForm() {
+  ////// set fucnction navigate to use it to change the Page //////
   const navigate = useNavigate();
+
+  /// api url ///
   const url = "http://TLSContact:80/create/add_user";
+
+  ///// use state /////
   const [data, setdata] = useState({
     First_name: "",
     Last_name: "",
@@ -254,14 +234,20 @@ function BodyForm() {
     document_type: "",
     document_number: "",
   });
+
+  //////// handle any chenge in the input ////
   function handle(e) {
+    ////// make a copy from data /////
     const newdata = { ...data };
-    console.log({ ...data });
+
+    ////// set value to inputs ////
     newdata[e.target.id] = e.target.value;
-    console.log(newdata);
+
+    //// set new sata /////
     setdata(newdata);
-    // console.log(newdata);
   }
+
+  ////// submut btn function ///////
 
   const SubmitEvent = (e) => {
     e.preventDefault();
@@ -280,13 +266,16 @@ function BodyForm() {
       })
       .then((res) => {
         console.log(res.data);
-        // Retrieve the user ID
+        // Retrieve the curent user ID ///////
         axios
           .get("http://TLSContact:80/read/current_usr_Reference_key")
           .then((response) => {
             const Reference_key = response.data.Reference_key;
+
+            //// set the refrence key in session stoage ////
             sessionStorage.setItem("Reference_key", Reference_key);
 
+            //// redirect to another page ///////
             navigate("/dateform");
           })
           .catch((error) => {
@@ -368,7 +357,7 @@ function BodyForm() {
             id="address"
             value={data.address}
             className="formInput"
-            type="date"
+            type="text"
             name="Adress"
           />
 
