@@ -60,7 +60,7 @@ class createController  extends methods {
         
         $this->date_reservation  = $data->date_reservation;
         $this->time = $data->time;
-        $this->id_user = $this->get_id_user();
+        $this->id_user = $data->id_user;
 
         var_dump($data->time);
       
@@ -76,5 +76,24 @@ class createController  extends methods {
 
     
 
+    public function add_to_reservation(){
+        $data  = json_decode(file_get_contents("php://input"));
+        
+        
+        $this->date_reservation  = $data->date_reservation;
+        $this->time = $data->time;
+        $this->id_user = $data->id_user;
 
+        var_dump( $this->date_reservation );
+        var_dump( $this->id_user );
+        
+      
+
+        
+        if($this->add_reservation_req()){
+            echo json_encode(array('message = > data save'));
+        }else {   
+            echo json_encode(array('message = > data bot save'));
+        }
+    }
 }

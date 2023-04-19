@@ -14,6 +14,7 @@ let allAppointmentTimes = [
 function DateBody() {
   ////// set fucnction navigate to use it to change the Page //////
   const navigate = useNavigate();
+  const id_user = sessionStorage.getItem("id_user");
 
   /// api url ///
   const url = "http://TLSContact/create/add_reservation";
@@ -25,6 +26,7 @@ function DateBody() {
   });
   function handle(e) {
     const newdata = { ...data };
+    console.log(newdata);
     ////// make a copy from data /////
     newdata[e.target.id] = e.target.value;
     ////// set value to inputs ////
@@ -38,6 +40,7 @@ function DateBody() {
       .post(url, {
         date_reservation: data.date_reservation,
         time: data.time,
+        id_user: id_user,
       })
       .then((res) => {
         console.log(res.data);

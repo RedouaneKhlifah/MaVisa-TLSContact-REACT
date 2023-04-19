@@ -271,9 +271,11 @@ function BodyForm() {
           .get("http://TLSContact:80/read/current_usr_Reference_key")
           .then((response) => {
             const Reference_key = response.data.Reference_key;
+            const id_user = response.data.id_user;
 
             //// set the refrence key in session stoage ////
             sessionStorage.setItem("Reference_key", Reference_key);
+            sessionStorage.setItem("id_user", id_user);
 
             //// redirect to another page ///////
             navigate("/dateform");

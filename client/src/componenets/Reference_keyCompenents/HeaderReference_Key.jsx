@@ -22,10 +22,10 @@ function HeaderReference_Key() {
             Unfortunately, we cannot retrieve your reference key once it has
             been lost. Please ensure to keep a copy of your reference key in a
             safe and secure place to avoid losing it. We apologize for any
-            inconvenience this may cause.
+            inconvenience this may cause. <br />
+            <a href="/status">check your status</a>
           </p>
         </div>
-        
       </center>
     </div>
   );

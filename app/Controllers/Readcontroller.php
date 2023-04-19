@@ -170,17 +170,20 @@ public function get_user($Reference_key){
     ///////  get last user ///////
 
     public function current_usr_Reference_key(){
-        $sql = "SELECT Reference_key FROM `user` ORDER BY Reference_key DESC LIMIT 1";
+        $sql = "SELECT Reference_key ,id_user FROM `user` ORDER BY Reference_key DESC LIMIT 1";
         $req = $this->connect()->query($sql) ;
         $req = mysqli_fetch_assoc($req);
+       
 
        
         $this->Reference_key = $req['Reference_key'];
+        $this->id_user = $req['id_user'];
 
 
         $post_arr = array(
             
             'Reference_key' =>$this->Reference_key,
+            'id_user'=>$this->id_user,
 
     
         );
@@ -274,9 +277,9 @@ public function get_user($Reference_key){
         // excute query
         if($this->get_reserv_req()){
             $post_arr = array(
+                'id_reservation' =>$this->id_reservation,
                 'date_reservation' => $this->date_reservation,
                 'time' =>$this->time,
-        
             );
         
             // make jason

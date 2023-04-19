@@ -124,7 +124,7 @@ class methods extends connection {
               
         $row  = mysqli_fetch_assoc($req);
 
-
+        $this->id_reservation = $row['id_reservation'];
         $this->date_reservation = $row['date_reservation'];
         $this->time = $row['time'];
         return true;
@@ -208,6 +208,7 @@ class methods extends connection {
         // clean data 
         $this->date_reservation = htmlspecialchars(strip_tags($this->date_reservation));
         $this->time = htmlspecialchars(strip_tags($this->time));
+        
 
 
         // bind data 
@@ -251,6 +252,30 @@ class methods extends connection {
 
     }
 
+    public function delete_reservation_req(){
+
+        // conecttion 
+        $con  =  $this->connect();
+
+        $query =  "delete from reservation where id_reservation  = ?";
+        
+        $stmt = $con->prepare($query);
+
+        //clean data
+        $this->id_reservation = htmlspecialchars(strip_tags($this->id_reservation));
+        
+        // bind data
+        
+        $stmt->bind_param('i',$this->id_reservation);
+
+        if($stmt->execute()){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
 
 
 public function get_dates_req(){
@@ -267,6 +292,7 @@ public function get_dates_req(){
     return  $req;
 
 }
+
 
     // public function get_times(){
     //     // $sql = "SELECT `time` FROM reservation WHERE date_reservation = '2023-02-16'";

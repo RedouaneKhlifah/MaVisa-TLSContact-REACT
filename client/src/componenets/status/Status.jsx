@@ -221,8 +221,10 @@ function Status() {
   let [successUpadateMessage, SetsuccessUpadateMessage] = useState(false);
   const [Reference_Key, SetReference_Key] = useState("");
   const [id_user, setid_user] = useState("");
-  const [showrRsevationInfo, setshowrRsevationInfo] = useState("false");
+  const [showrRsevationInfo, setshowrRsevationInfo] = useState(false);
+  const [thanksmessage, setthanksmessage] = useState(false);
 
+  const [idReservation, setIdReservation] = useState("");
   const [dateResevation, setdateresevation] = useState("");
   const [time, setTime] = useState("");
 
@@ -289,16 +291,24 @@ function Status() {
       .then((res) => {
         console.log(res);
         let id = res.data.id_user;
+        sessionStorage.setItem("id_user", id);
+        sessionStorage.setItem("Reference_key", Reference_Key);
+
         axios
           .post(`http://TLSContact:80/read/get_the_reservation/${id}`)
           .then((res) => {
             console.log(res.data);
             setshowrRsevationInfo(true);
+            setthanksmessage(true);
+            setIdReservation(res.data.id_reservation);
             setdateresevation(res.data.date_reservation);
             setTime(res.data.time);
+            setthanksmessage(true);
           })
           .catch((error) => {
             console.log(error);
+
+            setshowrRsevationInfo(false);
           });
 
         /// show the user info ////
@@ -348,6 +358,22 @@ function Status() {
     Setshowupadteinputs(true);
   };
 
+  ////////  annuller  reservation /////////
+
+  const annuller = (event) => {
+    event.preventDefault();
+    setshowrRsevationInfo(false);
+    setthanksmessage(false);
+    axios
+      .post(`http://TLSContact:80/delete/delete_reservation/${idReservation}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <center>
       <div className="FormBox">
@@ -371,11 +397,13 @@ function Status() {
         {/* check Submited  */}
         {Submited ? (
           <div className="container">
-            <p className="textinformUser">
-              Thank you for submitting your visa application. Our team is
-              currently processing your documents and will contact you if we
-              require any additional information
-            </p>
+            {thanksmessage ? (
+              <p className="textinformUser">
+                Thank you for submitting your visa application. Our team is
+                currently processing your documents and will contact you if we
+                require any additional information
+              </p>
+            ) : null}
 
             {showrRsevationInfo ? (
               <>
@@ -387,16 +415,28 @@ function Status() {
                 <label className="fname">
                   time :<p className="datacontainer"> {time}</p>
                 </label>
-              </>
-            ) : null}
 
+                <button
+                  onClick={annuller}
+                  className="btn btn-primary rounded-pill px-5 py-2 my-3"
+                >
+                  annuller
+                </button>
+              </>
+            ) : (
+              <p className="text-danger">
+                We're sorry, but it appears that you do not currently have a
+                reservation with us. If you would like to make a reservation
+                click <a href="/dateform">here</a> to make a resevation
+              </p>
+            )}
+
+            <h5 className="py-2">personal information</h5>
             {successUpadateMessage ? (
               <p id="success" className="text-success">
                 Updated successfully
               </p>
             ) : null}
-
-            <h5 className="py-2">personal information</h5>
             <div className="row">
               <div className="col-lg-6">
                 <label className="fname">
